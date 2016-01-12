@@ -53,37 +53,19 @@
 
 - (void)getData {
     
-    [ViewModel getUserName:^(NSString *name) {
+    
+//    [ViewModel getUserName:^(NSString *name) {
+//        self.label.text = name;
+//    } failure:^(id failure) {
+//        NSLog(@"%@==",failure);
+//    }];
+    
+    [ViewModel getUserNameWithKey:@"D" name:^(NSString *name) {
         self.label.text = name;
     } failure:^(id failure) {
-        NSLog(@"%@",failure);
+        NSLog(@"failure=%@===",failure);
     }];
     
-//    NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
-//    if (type == NETWORK_TYPE_NONE) {
-//        NSLog(@"没有网络");
-//        return;
-//    }
-//    
-//    
-//    API *api = [[API alloc] init];
-//    
-//    [api startWithBlockSuccess:^(API *api) {
-//        
-//        BaseModel *baseModel = [BaseModel mj_objectWithKeyValues:api.responseJSONObject];
-//        if ([baseModel.error isEqualToString:@"0"]) {
-//            Data *d = [Data mj_objectWithKeyValues:baseModel.data];
-//            self.label.text = d.nickname;
-//        }else{
-//            self.label.text = @"请求出错";
-//        }
-//        
-//        
-////        self.label.text = api.responseJSONObject;
-//        
-//    } failure:^(id request) {
-//        NSLog(@"error=%@",request);
-//    }];
 }
 
 

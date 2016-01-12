@@ -8,7 +8,19 @@
 
 #import "API.h"
 
-@implementation API
+@implementation API {
+    NSString *_userID;
+}
+
+
+- (instancetype)initWithUserID:(NSString *)userID{
+    self = [super init];
+    if (self) {
+        _userID = userID;
+    }
+    return self;
+}
+
 
 //接口地址
 - (NSString *)apiMethodName{
@@ -22,7 +34,7 @@
  */
 - (NSMutableDictionary *)requestArgument{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"key"] = @"C";
+    dict[@"key"] = _userID;
     return dict;
 }
 
@@ -40,15 +52,15 @@
  *
  */
 - (NSTimeInterval)requestTimeoutInterval{
-    return 10.f;
+    return 15.f;
 }
 
 /**
- *  时候缓存数据  默认为YES
+ *  是否缓存数据  默认为YES
  */
-- (BOOL)cacheResponse{
-    return NO;
-}
+//- (BOOL)cacheResponse{
+//    return NO;
+//}
 
 /**
  *  处理返回的responseObject数据

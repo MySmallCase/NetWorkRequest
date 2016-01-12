@@ -17,9 +17,9 @@
 /**
  *  请求用户姓名
  */
-+ (void)getUserName:(userName)name failure:(failure)failure{
-    
-    API *api = [[API alloc] init];
+
++ (void)getUserName:(void (^)(NSString *))name failure:(void (^)(id))failure {
+    API *api = [[API alloc] initWithUserID:@"C"];
     [api startWithBlockSuccess:^(API *api) {
         BaseModel *mode = [BaseModel mj_objectWithKeyValues:api.responseJSONObject];
         if ([mode.error isEqualToString:@"0"]) {
@@ -27,7 +27,6 @@
             name(d.nickname);
         }
     } failure:^(id request) {
-        
         NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
         if (type == NETWORK_TYPE_NONE) {
             failure(@"无网络");
@@ -35,7 +34,27 @@
             failure(@"请求超时");
         }
     }];
-    
+}
+
+
++ (void)getUserNameWithKey:(NSString *)key name:(void (^)(NSString *))name failure:(void (^)(id))failure {
+    API *api = [[API alloc] initWithUserID:key];
+    [api startWithBlockSuccess:^(API *api) {
+        BaseModel *mode = [BaseModel mj_objectWithKeyValues:api.responseJSONObject];
+        if ([mode.error isEqualToString:@"0"]) {
+            Data *d = [Data mj_objectWithKeyValues:mode.data];
+            name(d.nickname);
+        }else{
+            failure(@"请求错误");
+        }
+    } failure:^(id request) {
+        NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
+        if (type == NETWORK_TYPE_NONE) {
+            failure(@"无网络");
+        }else{
+            failure(@"请求超时");
+        }
+    }];
 }
 
 @end

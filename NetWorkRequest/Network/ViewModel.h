@@ -8,12 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^failure)(id failure);
-
-typedef void (^userName)(NSString *name);
-
 @interface ViewModel : NSObject
 
-+ (void)getUserName:(userName)name failure:(failure)failure;
++ (void)getUserName:(void(^)(NSString *name))name failure:(void(^)(id failure))failure;
+
++ (void)getUserNameWithKey:(NSString *)key name:(void(^)(NSString *name))name failure:(void(^)(id failure))failure;
 
 @end
