@@ -41,9 +41,9 @@
 /**
  *  使用的缓存方式   (默认实现的的是ClientReturnCacheDataThenLoad 有缓存就先返回缓存，同步请求数据 方式 这里可以更改缓存方式)
  */
-//- (ClientRequestCachePolicy)clientRequestCachePolicy {
-//    return ClientReloadIgnoringLocalCacheData;
-//}
+- (ClientRequestCachePolicy)clientRequestCachePolicy {
+    return ClientReturnCacheDataElseLoad;
+}
 
 /**
  *  @author yunFei, 16-01-09 11:01:02
@@ -53,6 +53,10 @@
  */
 - (NSTimeInterval)requestTimeoutInterval{
     return 15.f;
+}
+
+- (NSTimeInterval)cacheAgeLimit {
+    return 10.0f;
 }
 
 /**

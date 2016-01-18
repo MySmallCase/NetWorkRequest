@@ -9,7 +9,6 @@
 #import "BaseRequest.h"
 #import "NetworkAgent.h"
 #import "NetworkConfig.h"
-#import <YYCache.h>
 #import <AFNetworking.h>
 
 
@@ -62,6 +61,10 @@
     return YES;
 }
 
+
+/**
+ *  数据请求方式(默认POST请求)
+ */
 - (RequestMethod)requestMethod{
     return RequestMethodPost;
 }
@@ -79,9 +82,16 @@
  *  @return 超时时间
  */
 - (NSTimeInterval)requestTimeoutInterval{
-    return 10.0f;
+    return 20.0f;
 }
 
+
+/**
+ *  自定义缓存超期时间
+ */
+- (NSTimeInterval)cacheAgeLimit {
+    return -1;
+}
 
 /**
  *  使用缓存方式 参考ClientRequestCachePolicy

@@ -85,6 +85,14 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
  */
 - (NSTimeInterval)requestTimeoutInterval;
 
+
+
+/**
+ *  自定义缓存超期时间
+ */
+- (NSTimeInterval)cacheAgeLimit;
+
+
 /**
  *  multipart 数据
  *  @return 用于 multipart 的数据block
@@ -157,9 +165,6 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
 @property (nonatomic, copy) void (^successCompletionBlock)(BaseRequest *);
 @property (nonatomic, copy) void (^failureCompletionBlock)(BaseRequest *);
 @property (nonatomic, copy) void (^progressBlock)(NSProgress * progress);
-
-
-
 
 
 /**

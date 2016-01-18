@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
-#import <YYCache.h>
+//#import <YYCache.h>
+#import <EGOCache.h>
 
 #import "ViewModel.h"
+
+#define ClientRequestCache @"ClientRequestCache"
 
 @interface ViewController ()
 
@@ -48,19 +51,13 @@
 
 - (void)cleanCacheClick {
     
-//    [[[YYCache alloc] initWithName:ClientRequestCache] removeAllObjects];
+    [[EGOCache globalCache] clearCache];
+    
 }
 
 - (void)getData {
     
-    
-//    [ViewModel getUserName:^(NSString *name) {
-//        self.label.text = name;
-//    } failure:^(id failure) {
-//        NSLog(@"%@==",failure);
-//    }];
-    
-    [ViewModel getUserNameWithKey:@"D" name:^(NSString *name) {
+    [ViewModel getUserNameWithKey:@"C" name:^(NSString *name) {
         self.label.text = name;
     } failure:^(id failure) {
         NSLog(@"failure=%@===",failure);

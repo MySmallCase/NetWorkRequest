@@ -10,8 +10,11 @@
 #import "NetworkConfig.h"
 #import "BaseRequest.h"
 #import "AFNetworking.h"
-#import <YYCache.h>
+
+#import <EGOCache.h>
 #import "BaseRequest+Internal.h"
+
+#import "checkNetwork.h"
 
 @interface NetworkAgent ()
 
@@ -48,6 +51,15 @@
 
 - (void)addRequest:(BaseRequest <APIRequest>*)request {
     
+    
+    //判断是否有网络
+    NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
+    if (type == NETWORK_TYPE_NONE) {
+        request.failureCompletionBlock(request);
+        return;
+    }
+    
+    
     NSString *url = request.urlString;
     
     // 是否使用 https
@@ -79,14 +91,9 @@
     }
     
     //在这里判断是否有缓存
-    YYCache *cache = [[YYCache alloc] initWithName:ClientRequestCache];
-    cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
-    cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
-        
-    id object = [cache objectForKey:cacheKey];
+    EGOCache *cache = [EGOCache globalCache];
     
-    //判断是否有网络
-
+    id object = [cache objectForKey:cacheKey];
     
     switch ([request.child clientRequestCachePolicy]) {
         case ClientReturnCacheDataThenLoad: { //有缓存就先返回缓存，同步请求数据
@@ -125,7 +132,7 @@
     
 }
 
-- (void)getDataWithRequest:(BaseRequest <APIRequest>*)request url:(NSString *)url argument:(NSMutableDictionary *)argument cache:(YYCache *)cache cacheKey:(NSString *)cacheKey{
+- (void)getDataWithRequest:(BaseRequest <APIRequest>*)request url:(NSString *)url argument:(NSMutableDictionary *)argument cache:(EGOCache *)cache cacheKey:(NSString *)cacheKey{
     
     
     if ([request.child requestMethod] == RequestMethodGet) {  //get请求
@@ -136,7 +143,12 @@
             
             //判断是否需要缓存请求的数据
             if ([request.child cacheResponse]) {
-                [cache setObject:responseObject forKey:cacheKey];
+                if ([request.child cacheAgeLimit] == -1) {
+                    [cache setObject:responseObject forKey:cacheKey];
+                }else {
+                    [cache setObject:responseObject forKey:cacheKey withTimeoutInterval:[request.child cacheAgeLimit]];
+                }
+                
             }
             
             [self handleRequestSuccess:task];
@@ -154,7 +166,12 @@
                 
                 //判断是否需要缓存请求的数据
                 if ([request.child cacheResponse]) {
-                    [cache setObject:responseObject forKey:cacheKey];
+                    if ([request.child cacheAgeLimit] == -1) {
+                        [cache setObject:responseObject forKey:cacheKey];
+                    }else {
+                        [cache setObject:responseObject forKey:cacheKey withTimeoutInterval:[request.child cacheAgeLimit]];
+                    }
+                    
                 }
                 
                 [self handleRequestSuccess:task];
@@ -170,7 +187,12 @@
                 
                 //判断是否需要缓存请求的数据
                 if ([request.child cacheResponse]) {
-                    [cache setObject:responseObject forKey:cacheKey];
+                    if ([request.child cacheAgeLimit] == -1) {
+                        [cache setObject:responseObject forKey:cacheKey];
+                    }else {
+                        [cache setObject:responseObject forKey:cacheKey withTimeoutInterval:[request.child cacheAgeLimit]];
+                    }
+                    
                 }
                 
                 [self handleRequestSuccess:task];
@@ -179,7 +201,6 @@
             }];
         }
     }
-    
     [self addOperation:request];
     
 }
@@ -214,9 +235,7 @@
         if (request.delegate != nil) {
             [request.delegate requestFinished:request];
         }
-        
-        
-        
+                
         if (request.successCompletionBlock) {
             
             request.successCompletionBlock(request);
