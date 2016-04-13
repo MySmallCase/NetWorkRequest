@@ -39,16 +39,13 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
 /*--------------------------------------------*/
 @protocol APIRequest <NSObject>
 
-@required
+@optional
+
 /**
  *  接口地址
  *  @return 接口地址
  */
 - (NSString *)apiMethodName;
-
-
-
-@optional
 
 /**
  *  参数字典
@@ -91,6 +88,12 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
  *  自定义缓存超期时间
  */
 - (NSTimeInterval)cacheAgeLimit;
+
+
+/**
+ *  是否清除对应链接缓存
+ */
+- (BOOL)isClearCache;
 
 
 /**
@@ -158,7 +161,7 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
 @property (nonatomic, strong) NSURLSessionDataTask *sessionDataTask;
 @property (nonatomic, strong) NSMutableDictionary *requestArgument;
 @property (nonatomic, weak) id<RequestDelegate> delegate;
-@property (nonatomic, weak, readonly) id<APIRequest> child;
+@property (nonatomic, weak, readonly) id<APIRequest,RequestAccessory> child;
 @property (nonatomic, strong) id responseJSONObject;
 @property (nonatomic, strong, readonly) NSString *urlString;
 @property (nonatomic, strong, readonly) NSMutableArray *requestAccessories;

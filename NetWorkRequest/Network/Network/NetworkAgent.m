@@ -50,8 +50,6 @@
 
 
 - (void)addRequest:(BaseRequest <APIRequest>*)request {
-    
-    
     //判断是否有网络
     NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
     if (type == NETWORK_TYPE_NONE) {
@@ -77,6 +75,7 @@
     NSString *keys = [self getKeysValues:argument];
     NSString *cacheKey = [NSString stringWithFormat:@"%@?%@",url,keys];
     
+    
     // 检查是否有统一的参数添加
     argument = [self.config.processRule processArgumentWithRequest:request.requestArgument];
     
@@ -93,13 +92,26 @@
     //在这里判断是否有缓存
     EGOCache *cache = [EGOCache globalCache];
     
+    //是否清除对应链接缓存
+    if ([request.child isClearCache]) {
+        for (NSString *key in cache.allKeys) {
+            if ([key hasPrefix:url]) {
+                [cache removeCacheForKey:key];
+            }
+        }
+    }
+    
     id object = [cache objectForKey:cacheKey];
     
     switch ([request.child clientRequestCachePolicy]) {
         case ClientReturnCacheDataThenLoad: { //有缓存就先返回缓存，同步请求数据
             if (object) {
                 request.responseJSONObject = object;
-                request.successCompletionBlock(request);
+                if (request.successCompletionBlock) {
+                    request.successCompletionBlock(request);
+                }else {
+                    [request.delegate requestFinished:request];
+                }
             }
             //这里传参数  返回数据
             [self getDataWithRequest:request url:url argument:argument cache:cache cacheKey:cacheKey];
@@ -115,7 +127,11 @@
         case ClientReturnCacheDataElseLoad: { //有缓存就用缓存，没有缓存就重新请求(用于数据不变时)
             if (object) {
                 request.responseJSONObject = object;
-                request.successCompletionBlock(request);
+                if (request.successCompletionBlock) {
+                    request.successCompletionBlock(request);
+                }else {
+                    [request.delegate requestFinished:request];
+                }
             }
             else {
                [self getDataWithRequest:request url:url argument:argument cache:cache cacheKey:cacheKey];
@@ -210,8 +226,14 @@
     NSArray *allKeys = [dict allKeys];
     NSString *keys;
     for (NSString *key in allKeys) {
-        keys = [NSString stringWithFormat:@"%@=%@",key,[dict objectForKey:key]];
+        if (keys) {
+            keys = [NSString stringWithFormat:@"%@&%@=%@",keys,key,[dict objectForKey:key]];
+        }else {
+            keys = [NSString stringWithFormat:@"%@=%@",key,[dict objectForKey:key]];
+        }
+        
     }
+    
     return keys;
 }
 
@@ -274,14 +296,12 @@
     [request clearCompletionBlock];
 }
 
-
 - (void)removeOperation:(NSURLSessionDataTask *)operation {
     NSString *key = [self keyForRequest:operation];
     @synchronized(self) {
         [_requestsRecord removeObjectForKey:key];
     }
 }
-
 
 - (void)addOperation:(BaseRequest *)request {
     if (request.sessionDataTask != nil) {

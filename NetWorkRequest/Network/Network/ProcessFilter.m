@@ -12,11 +12,6 @@
 @implementation ProcessFilter
 
 - (NSMutableDictionary *)processArgumentWithRequest:(NSMutableDictionary *)argument{
-    
-    //应用版本
-    argument[@"app_version"] = [NSString stringWithFormat:@"%@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-        
-    
     return argument;
 }
 

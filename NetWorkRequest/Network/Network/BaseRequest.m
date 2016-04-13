@@ -14,8 +14,7 @@
 
 @interface BaseRequest ()
 
-//@property (nonatomic, strong) id cacheJson;
-@property (nonatomic, weak) id<APIRequest> child;
+@property (nonatomic, weak) id<APIRequest,RequestAccessory> child;
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 @property (nonatomic, strong) NetworkConfig *config;
 
@@ -28,7 +27,7 @@
     self = [super init];
     if (self) {
         if ([self conformsToProtocol:@protocol(APIRequest)]) {
-            _child = (id<APIRequest>)self;
+            _child = (id<APIRequest,RequestAccessory>)self;
         }
         else {
             NSAssert(NO, @"子类必须要实现APIRequest这个protocol");
@@ -82,7 +81,7 @@
  *  @return 超时时间
  */
 - (NSTimeInterval)requestTimeoutInterval{
-    return 20.0f;
+    return 30.0f;
 }
 
 
@@ -93,11 +92,21 @@
     return -1;
 }
 
+
+
 /**
  *  使用缓存方式 参考ClientRequestCachePolicy
  */
 - (ClientRequestCachePolicy)clientRequestCachePolicy {
     return ClientReturnCacheDataThenLoad;
+}
+
+
+/**
+ *  是否清除缓存
+ */
+- (BOOL)isClearCache {
+    return NO;
 }
 
 
@@ -192,6 +201,7 @@
     }
     [self.requestAccessories addObject:accessory];
 }
+
 
 @end
 
