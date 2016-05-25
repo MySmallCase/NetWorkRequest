@@ -50,10 +50,16 @@
 
 
 - (void)addRequest:(BaseRequest <APIRequest>*)request {
+    
     //判断是否有网络
     NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
     if (type == NETWORK_TYPE_NONE) {
-        request.failureCompletionBlock(request);
+        if (request.delegate != nil) {
+            [request.delegate requestFailed:request];
+        }
+        if (request.failureCompletionBlock) {
+            request.failureCompletionBlock(request);
+        }
         return;
     }
     
@@ -72,10 +78,14 @@
     
     NSMutableDictionary *argument = request.requestArgument;
     
-    NSString *keys = [self getKeysValues:argument];
-    NSString *cacheKey = [NSString stringWithFormat:@"%@?%@",url,keys];
-    
-    
+    NSString *cacheKey;
+    if (argument.count > 0) {
+        NSString *keys = [self getKeysValues:argument];
+        cacheKey = [NSString stringWithFormat:@"%@?%@",url,keys];
+    }else {
+        cacheKey = [NSString stringWithFormat:@"%@",url];
+    }
+        
     // 检查是否有统一的参数添加
     argument = [self.config.processRule processArgumentWithRequest:request.requestArgument];
     
@@ -277,7 +287,7 @@
     if (request) {
         [request toggleAccessoriesWillStopCallBack];
         if (request.delegate != nil) {
-            [request.delegate requestFinished:request];
+            [request.delegate requestFailed:request];
         }
         if (request.failureCompletionBlock) {
             request.failureCompletionBlock(request);
@@ -296,12 +306,14 @@
     [request clearCompletionBlock];
 }
 
+
 - (void)removeOperation:(NSURLSessionDataTask *)operation {
     NSString *key = [self keyForRequest:operation];
     @synchronized(self) {
         [_requestsRecord removeObjectForKey:key];
     }
 }
+
 
 - (void)addOperation:(BaseRequest *)request {
     if (request.sessionDataTask != nil) {

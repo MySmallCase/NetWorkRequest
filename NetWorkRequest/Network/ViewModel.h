@@ -10,8 +10,6 @@
 
 @interface ViewModel : NSObject
 
-+ (void)getUserName:(void(^)(NSString *name))name failure:(void(^)(id failure))failure;
-
-+ (void)getUserNameWithKey:(NSString *)key name:(void(^)(NSString *name))name failure:(void(^)(id failure))failure;
++ (void)getBannerSuccess:(void(^)(NSString *message))success failure:(void(^)(id failure))failure;
 
 @end

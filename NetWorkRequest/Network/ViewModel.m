@@ -14,47 +14,20 @@
 
 @implementation ViewModel
 
-/**
- *  请求用户姓名
- */
-
-+ (void)getUserName:(void (^)(NSString *))name failure:(void (^)(id))failure {
-    API *api = [[API alloc] initWithUserID:@"C"];
-    [api startWithBlockSuccess:^(API *api) {
-        BaseModel *mode = [BaseModel mj_objectWithKeyValues:api.responseJSONObject];
-        if ([mode.error isEqualToString:@"0"]) {
-            Data *d = [Data mj_objectWithKeyValues:mode.data];
-            name(d.nickname);
++ (void)getBannerSuccess:(void (^)(NSString *))success failure :(void (^)(id))failure {
+    API *api = [[API alloc] init];
+    [api startWithBlockSuccess:^(API *request) {
+        BaseModel *model = [BaseModel mj_objectWithKeyValues:request.responseJSONObject];
+        if ([model.error isEqualToString:@"0"]) {
+            success(model.message);
+        }else {
+            failure(model.error);
         }
+        
     } failure:^(id request) {
-        NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
-        if (type == NETWORK_TYPE_NONE) {
-            failure(@"无网络");
-        }else{
-            failure(@"请求超时");
-        }
+        failure(@"请求超时");
     }];
 }
 
-
-+ (void)getUserNameWithKey:(NSString *)key name:(void (^)(NSString *))name failure:(void (^)(id))failure {
-    API *api = [[API alloc] initWithUserID:key];
-    [api startWithBlockSuccess:^(API *api) {
-        BaseModel *mode = [BaseModel mj_objectWithKeyValues:api.responseJSONObject];
-        if ([mode.error isEqualToString:@"0"]) {
-            Data *d = [Data mj_objectWithKeyValues:mode.data];
-            name(d.nickname);
-        }else{
-            failure(@"请求错误");
-        }
-    } failure:^(id request) {
-        NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
-        if (type == NETWORK_TYPE_NONE) {
-            failure(@"无网络");
-        }else{
-            failure(@"请求超时");
-        }
-    }];
-}
 
 @end

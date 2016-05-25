@@ -13,18 +13,10 @@
 }
 
 
-- (instancetype)initWithUserID:(NSString *)userID{
-    self = [super init];
-    if (self) {
-        _userID = userID;
-    }
-    return self;
-}
-
 
 //接口地址
 - (NSString *)apiMethodName{
-    return @"/index.aspx";
+    return @"/show/choice/banner";
 }
 
 /**
@@ -34,7 +26,6 @@
  */
 - (NSMutableDictionary *)requestArgument{
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"key"] = _userID;
     return dict;
 }
 
@@ -42,18 +33,9 @@
  *  使用的缓存方式   (默认实现的的是ClientReturnCacheDataThenLoad 有缓存就先返回缓存，同步请求数据 方式 这里可以更改缓存方式)
  */
 - (ClientRequestCachePolicy)clientRequestCachePolicy {
-    return ClientReturnCacheDataElseLoad;
+    return ClientReloadIgnoringLocalCacheData;
 }
 
-/**
- *  @author yunFei, 16-01-09 11:01:02
- *
- *  请求超时时间  (在BaseRequest方法中已经默认实现,这里可以自定义每个请求的超时时间)
- *
- */
-- (NSTimeInterval)requestTimeoutInterval{
-    return 15.f;
-}
 
 - (NSTimeInterval)cacheAgeLimit {
     return 10.0f;

@@ -10,6 +10,5 @@
 
 @interface API : BaseRequest<APIRequest>
 
-- (instancetype)initWithUserID:(NSString *)userID;
 
 @end

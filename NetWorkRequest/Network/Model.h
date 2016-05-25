@@ -16,19 +16,7 @@
 
 @property (nonatomic, copy) NSString *message;
 
-@property (nonatomic, strong) Data *data;
-
 
 @end
-@interface Data : NSObject
 
-@property (nonatomic, copy) NSString *username;
-
-@property (nonatomic, copy) NSString *age;
-
-@property (nonatomic, copy) NSString *sex;
-
-@property (nonatomic, copy) NSString *nickname;
-
-@end
 

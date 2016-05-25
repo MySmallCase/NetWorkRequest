@@ -12,8 +12,5 @@
 
 @end
 
-@implementation Data
-
-@end
 
 

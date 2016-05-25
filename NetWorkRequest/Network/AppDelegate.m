@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NetworkConfig *config = [NetworkConfig sharedInstance];
-    config.mainBaseUrl = @"https://weixin.tj-jn.com";
+    config.mainBaseUrl = @"https://api.520dyw.cn";
     
     ProcessFilter *filter = [[ProcessFilter alloc] init];
     config.processRule = filter;

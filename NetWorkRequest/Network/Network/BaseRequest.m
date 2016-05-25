@@ -14,6 +14,7 @@
 
 @interface BaseRequest ()
 
+//@property (nonatomic, strong) id cacheJson;
 @property (nonatomic, weak) id<APIRequest,RequestAccessory> child;
 @property (nonatomic, strong) NSMutableArray *requestAccessories;
 @property (nonatomic, strong) NetworkConfig *config;

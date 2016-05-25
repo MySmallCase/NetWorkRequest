@@ -21,12 +21,11 @@
 		1F304D291C3BB6E300678A38 /* NetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F304D281C3BB6E300678A38 /* NetworkAgent.m */; };
 		1F304D2C1C3BB7EF00678A38 /* NetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F304D2B1C3BB7EF00678A38 /* NetworkConfig.m */; };
 		1F304D341C3BCA9A00678A38 /* API.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F304D331C3BCA9A00678A38 /* API.m */; };
-		1F304D361C3BD96B00678A38 /* api.cellmyth.cn.cer in Resources */ = {isa = PBXBuildFile; fileRef = 1F304D351C3BD96B00678A38 /* api.cellmyth.cn.cer */; };
 		1F304D391C3BDFFF00678A38 /* ProcessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F304D381C3BDFFF00678A38 /* ProcessFilter.m */; };
-		1F304D3B1C3BE68700678A38 /* zhengshu.cer in Resources */ = {isa = PBXBuildFile; fileRef = 1F304D3A1C3BE68700678A38 /* zhengshu.cer */; };
 		1F9DA87C1C40D9CB00A9162B /* checkNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DA87B1C40D9CB00A9162B /* checkNetwork.m */; };
 		1F9DA87F1C40DC0200A9162B /* ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9DA87E1C40DC0200A9162B /* ViewModel.m */; };
 		1FD18F8B1C40BA9B00159F8A /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD18F8A1C40BA9B00159F8A /* Model.m */; };
+		7C5CABED1CF5900200F1A6A6 /* dyw.cer in Resources */ = {isa = PBXBuildFile; fileRef = 7C5CABEC1CF5900200F1A6A6 /* dyw.cer */; };
 		AF503D5E6427B463D1EBC576 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EE53903D7A53E778AC6B99D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -78,16 +77,15 @@
 		1F304D2F1C3BB89900678A38 /* BaseRequest+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseRequest+Internal.h"; sourceTree = "<group>"; };
 		1F304D321C3BCA9A00678A38 /* API.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = API.h; sourceTree = "<group>"; };
 		1F304D331C3BCA9A00678A38 /* API.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = API.m; sourceTree = "<group>"; };
-		1F304D351C3BD96B00678A38 /* api.cellmyth.cn.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = api.cellmyth.cn.cer; sourceTree = "<group>"; };
 		1F304D371C3BDFFF00678A38 /* ProcessFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcessFilter.h; sourceTree = "<group>"; };
 		1F304D381C3BDFFF00678A38 /* ProcessFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcessFilter.m; sourceTree = "<group>"; };
-		1F304D3A1C3BE68700678A38 /* zhengshu.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = zhengshu.cer; sourceTree = "<group>"; };
 		1F9DA87A1C40D9CB00A9162B /* checkNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checkNetwork.h; sourceTree = "<group>"; };
 		1F9DA87B1C40D9CB00A9162B /* checkNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = checkNetwork.m; sourceTree = "<group>"; };
 		1F9DA87D1C40DC0200A9162B /* ViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewModel.h; sourceTree = "<group>"; };
 		1F9DA87E1C40DC0200A9162B /* ViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewModel.m; sourceTree = "<group>"; };
 		1FD18F891C40BA9B00159F8A /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		1FD18F8A1C40BA9B00159F8A /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		7C5CABEC1CF5900200F1A6A6 /* dyw.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = dyw.cer; sourceTree = "<group>"; };
 		8EE53903D7A53E778AC6B99D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43D66925B1DEE76A571C78D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,8 +149,7 @@
 		1F304CE91C3BAF7400678A38 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				1F304D3A1C3BE68700678A38 /* zhengshu.cer */,
-				1F304D351C3BD96B00678A38 /* api.cellmyth.cn.cer */,
+				7C5CABEC1CF5900200F1A6A6 /* dyw.cer */,
 				1F304D1D1C3BB03000678A38 /* Network */,
 				1F304CED1C3BAF7400678A38 /* AppDelegate.h */,
 				1F304CEE1C3BAF7400678A38 /* AppDelegate.m */,
@@ -300,7 +297,7 @@
 				TargetAttributes = {
 					1F304CE61C3BAF7400678A38 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = V9GR4BU3R6;
+						DevelopmentTeam = 3V47L33Q25;
 					};
 					1F304CFF1C3BAF7400678A38 = {
 						CreatedOnToolsVersion = 7.2;
@@ -337,11 +334,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F304D3B1C3BE68700678A38 /* zhengshu.cer in Resources */,
-				1F304D361C3BD96B00678A38 /* api.cellmyth.cn.cer in Resources */,
 				1F304CFA1C3BAF7400678A38 /* LaunchScreen.storyboard in Resources */,
 				1F304CF71C3BAF7400678A38 /* Assets.xcassets in Resources */,
 				1F304CF51C3BAF7400678A38 /* Main.storyboard in Resources */,
+				7C5CABED1CF5900200F1A6A6 /* dyw.cer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

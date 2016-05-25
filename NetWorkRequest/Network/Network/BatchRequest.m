@@ -80,7 +80,7 @@
 
 - (void)requestFinished:(BaseRequest *)request {
     _finishedCount++;
-    if (_finishedCount == _requestArray.count) {
+    if (_finishedCount >= _requestArray.count) {
         [self toggleAccessoriesWillStopCallBack];
         if ([_delegate respondsToSelector:@selector(batchRequestFinished:)]) {
             [_delegate batchRequestFinished:self];
@@ -88,7 +88,7 @@
         if (_successCompletionBlock) {
             _successCompletionBlock(self);
         }
-        [self clearCompletionBlock];
+//        [self clearCompletionBlock];
         [self toggleAccessoriesDidStopCallBack];
     }
 }

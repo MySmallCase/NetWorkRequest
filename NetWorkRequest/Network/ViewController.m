@@ -24,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    [EGOCache globalCache] objectForKey:<#(NSString * _Nonnull)#>;
 
     UIButton *button = [[UIButton alloc] init];
     button.frame = CGRectMake(100, 100, 100, 30);
@@ -52,15 +54,16 @@
 - (void)cleanCacheClick {
     
     [[EGOCache globalCache] clearCache];
+    self.label.text = @"清空了";
     
 }
 
 - (void)getData {
     
-    [ViewModel getUserNameWithKey:@"C" name:^(NSString *name) {
-        self.label.text = name;
+    [ViewModel getBannerSuccess:^(NSString *message) {
+        self.label.text = message;
     } failure:^(id failure) {
-        NSLog(@"failure=%@===",failure);
+        NSLog(@"%@====",failure);
     }];
     
 }
