@@ -10,6 +10,8 @@
 #import "NetworkConfig.h"
 #import "ProcessFilter.h"
 
+#import <RealReachability.h>
+
 @interface AppDelegate ()
 
 @end
@@ -23,6 +25,13 @@
     
     ProcessFilter *filter = [[ProcessFilter alloc] init];
     config.processRule = filter;
+    
+    //这里进行网络监听
+    [GLobalRealReachability startNotifier];
+    
+    [GLobalRealReachability reachabilityWithBlock:^(ReachabilityStatus status) {
+        
+    }];
     
     return YES;
 }

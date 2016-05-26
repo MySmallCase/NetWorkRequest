@@ -36,6 +36,18 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
     ClientReturnCacheDataDontLoad,     //有缓存就用缓存，没有缓存就不发请求，当做请求出错处理（用于离线模式）
 };
 
+
+typedef NS_ENUM(NSInteger,reachabilityStatus) {   //这里只要用做以后做某些特定请求需要指定特定的网络
+    ReachabilityStatus_NotReachable,        //表示无网络状态
+    ReachabilityStatus_ViaWWAN,             //表示为蜂窝网络
+    ReachabilityStatus_ViaWiFi,             //表示为wifi网络
+    ReachabilityStatus_WWANTypeUnknown,     //表示为未知蜂窝网络
+    ReachabilityStatus_WWANType4G,          //表示为蜂窝网络4G
+    ReachabilityStatus_WWANType3G,          //表示为蜂窝网络3G
+    ReachabilityStatus_WWANType2G,          //表示为蜂窝网络2G
+    ReachabilityStatus_AllReachability,     //表示用于所有有网状态下
+};
+
 /*--------------------------------------------*/
 @protocol APIRequest <NSObject>
 
@@ -69,6 +81,12 @@ typedef NS_ENUM(NSInteger , ClientRequestCachePolicy) {
  *  使用缓存方式 参考ClientRequestCachePolicy
  */
 - (ClientRequestCachePolicy)clientRequestCachePolicy;
+
+/**
+ *  指定某类网络状态
+ *
+ */
+- (reachabilityStatus)reachabilityStatus;
 
 /**
  *  是否缓存数据 response 数据

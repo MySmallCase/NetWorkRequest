@@ -32,11 +32,11 @@
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     argument[@"datetime"] = [NSString stringWithFormat:@"%.0f",currentTime];
     //设备名称
-    argument[@"device_name"] = [NSString deviceType];
+//    argument[@"device_name"] = [NSString deviceType];
     //设备唯一标识UUID
     argument[@"device_id"] = currentDevice.identifierForVendor.UUIDString;
     //设备分辨率
-    argument[@"resolution"] = [NSString stringWithFormat:@"%.0f*%.0f",kScreen_Width,kScreen_Height];
+//    argument[@"resolution"] = [NSString stringWithFormat:@"%.0f*%.0f",kScreen_Width,kScreen_Height];
     
     return argument;
 }

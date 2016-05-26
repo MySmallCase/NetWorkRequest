@@ -14,7 +14,7 @@
 #import <EGOCache.h>
 #import "BaseRequest+Internal.h"
 
-#import "checkNetwork.h"
+#import <RealReachability.h>
 
 @interface NetworkAgent ()
 
@@ -51,9 +51,8 @@
 
 - (void)addRequest:(BaseRequest <APIRequest>*)request {
     
-    //判断是否有网络
-    NETWORK_TYPE type = [checkNetwork getNetworkTypeFromStatusBar];
-    if (type == NETWORK_TYPE_NONE) {
+    ReachabilityStatus status = [GLobalRealReachability currentReachabilityStatus];
+    if (status == RealStatusNotReachable) {
         if (request.delegate != nil) {
             [request.delegate requestFailed:request];
         }
@@ -62,7 +61,7 @@
         }
         return;
     }
-    
+        
     
     NSString *url = request.urlString;
     

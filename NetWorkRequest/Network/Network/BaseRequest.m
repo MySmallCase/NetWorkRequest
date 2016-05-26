@@ -102,6 +102,13 @@
     return ClientReturnCacheDataThenLoad;
 }
 
+/**
+ *  指定特定网络
+ */
+- (reachabilityStatus)reachabilityStatus {
+    return ReachabilityStatus_AllReachability;
+}
+
 
 /**
  *  是否清除缓存

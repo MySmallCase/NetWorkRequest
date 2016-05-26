@@ -1,8 +1,9 @@
-platform:ios, '7.0'
+platform:ios, '8.0'
 inhibit_all_warnings!
-pod 'AFNetworking', '~> 3.0.4'
-pod 'MJExtension', '~> 3.0.8’
-pod 'EGOCache', '~> 2.1.3'
 
-
-
+target 'Network' do
+    pod 'AFNetworking', '~> 3.0.4'
+    pod 'MJExtension', '~> 3.0.8’
+    pod 'EGOCache', '~> 2.1.3'
+    pod 'RealReachability', '~> 1.1.5'
+end

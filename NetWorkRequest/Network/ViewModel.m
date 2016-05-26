@@ -10,7 +10,6 @@
 #import "API.h"
 #import "Model.h"
 #import <MJExtension.h>
-#import "checkNetwork.h"
 
 @implementation ViewModel
 
