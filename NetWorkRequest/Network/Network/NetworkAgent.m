@@ -67,7 +67,23 @@
     
     // 是否使用 https
     if ([url hasPrefix:@"https"]) {
+        
+        //导入证书，找到证书路径
+        NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"dyw" ofType:@"cer"];
+        NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
+        
+        //证书验证模式
         AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+        
+        //是否允许无效证书
+        securityPolicy.allowInvalidCertificates = NO;
+        
+        //是否需要验证域名
+        securityPolicy.validatesDomainName = NO;
+        
+        NSSet *set = [[NSSet alloc] initWithObjects:cerData, nil];
+        securityPolicy.pinnedCertificates = set;
+        
         self.manager.securityPolicy = securityPolicy;
     }
     
